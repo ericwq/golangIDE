@@ -101,7 +101,7 @@ RUN mv package.json ~/.config/coc/extensions
 
 # Install COC extension 
 WORKDIR  ~/.config/coc/extensions
-RUN cd ~/.config/coc/extensions && npm install coc-json coc-go coc-snippets --global-style \
+RUN cd ~/.config/coc/extensions && npm install coc-json coc-snippets --global-style \
         --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
 # Copy the .vimrc file and coc-settings.json
