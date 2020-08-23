@@ -122,9 +122,9 @@ WORKDIR $HOME
 # Setup the shell environement
 RUN touch $HOME/.bash_profile && \
 	echo 'if [ -f ~/.bashrc ]; then . ~/.bashrc; fi' >> $HOME/.bash_profile 
-RUN echo 'PATH=/usr/local/go/bin:$PATH' >> $HOME/.bashrc  
-RUN echo 'LANG=en_US.UTF-8' >> $HOME/.bashrc  
+RUN echo 'export LANG=en_US.UTF-8' >> $HOME/.bashrc  
 RUN echo 'alias vi=vim' >> $HOME/.bashrc  
+RUN echo "export PS1='\u@\h:\w$'" >> $HOME/.bashrc
 
 # Final command
 CMD ["/bin/bash"]
