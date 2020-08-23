@@ -3,7 +3,8 @@
 
   "languageserver": {
     "golang": {
-      "command": "gopls",
+      "command": "/home/ide/go/bin/gopls",
+      "args": ["-logfile", "/tmp/gopls.log", "-remote=auto"],
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"],
       "initializationOptions": {
