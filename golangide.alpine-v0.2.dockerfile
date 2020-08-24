@@ -127,5 +127,7 @@ RUN echo 'export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH' >> $HOME/.bashrc
 RUN echo 'alias vi=vim' >> $HOME/.bashrc  
 RUN echo "export PS1='\u@\h:\w $ '" >> $HOME/.bashrc
 
+# create the empty proj dir for volume
+RUN mkdir -p ~/proj
 # Final command
 CMD ["/bin/bash"]
