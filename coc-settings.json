@@ -1,15 +1,4 @@
 {
-  "suggest.removeDuplicateItems":true,
-
-  "languageserver": {
-    "golang": {
-      "command": "/home/ide/go/bin/gopls",
-      "args": ["-logfile", "/tmp/gopls.log", "-remote=auto"],
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
-      "initializationOptions": {
-        "usePlaceholders": true
-      }
-    }
-  }
+  "go.goplsArgs": ["-remote", "auto", "-logfile", "/tmp/gopls.log"],
+  "go.goplsPath": "/home/ide/go/bin/gopls",
 }

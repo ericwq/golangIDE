@@ -101,7 +101,7 @@ RUN mv package.json ~/.config/coc/extensions
 
 # Install COC extension 
 WORKDIR  ~/.config/coc/extensions
-RUN cd ~/.config/coc/extensions && npm install coc-json coc-snippets --global-style \
+RUN cd ~/.config/coc/extensions && npm install coc-go coc-json coc-snippets --global-style \
         --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
 # Copy the .vimrc file and coc-settings.json
@@ -123,8 +123,9 @@ WORKDIR $HOME
 RUN touch $HOME/.bash_profile && \
 	echo 'if [ -f ~/.bashrc ]; then . ~/.bashrc; fi' >> $HOME/.bash_profile 
 RUN echo 'export LANG=en_US.UTF-8' >> $HOME/.bashrc  
+RUN echo 'export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH' >> $HOME/.bashrc  
 RUN echo 'alias vi=vim' >> $HOME/.bashrc  
-RUN echo "export PS1='\u@\h:\w$'" >> $HOME/.bashrc
+RUN echo "export PS1='\u@\h:\w $ '" >> $HOME/.bashrc
 
 # Final command
 CMD ["/bin/bash"]
