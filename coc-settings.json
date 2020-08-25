@@ -1,4 +1,8 @@
 {
   "go.goplsArgs": ["-remote", "auto", "-logfile", "/tmp/gopls.log"],
   "go.goplsPath": "/home/ide/go/bin/gopls",
+  "go.goplsOptions": {
+    "completeUnimported": true,
+    "usePlaceholders": true,
+  },
 }
