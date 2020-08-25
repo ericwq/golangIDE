@@ -115,6 +115,7 @@ RUN go get github.com/golang/protobuf/protoc-gen-go
 # Clean go environement
 RUN go clean -cache && go clean -testcache
 USER root
+RUN apk add htop
 RUN apk del make 
 
 USER ide:develop
