@@ -30,8 +30,8 @@ RUN mkdir -m 0755 -p ~/.vim
 
 # Install molokai colorscheme
 WORKDIR /tmp
-RUN git clone https://github.com/tomasr/molokai.git
-RUN cd molokai/ && mv colors ~/.vim && cd .. && rm -rf molokai/
+RUN git clone https://github.com/tomasr/molokai.git && \ 
+	cd molokai/ && mv colors ~/.vim && cd .. && rm -rf molokai/
 
 # Install Dockerfile plugin
 WORKDIR /tmp
@@ -39,17 +39,17 @@ RUN git clone https://github.com/ekalinin/Dockerfile.vim.git && \
 	cd Dockerfile.vim && make install && cd .. &&  rm -rf Dockerfile.vim
 
 # Install lightline
-RUN git clone https://github.com/itchyny/lightline.vim ~/.vim/pack/plugins/start/lightline
-RUN vim +"helptags ~/.vim/pack/plugins/start/lightline/doc" +qall
+RUN git clone https://github.com/itchyny/lightline.vim ~/.vim/pack/plugins/start/lightline && \
+	vim +"helptags ~/.vim/pack/plugins/start/lightline/doc" +qall
 
 # Install nerdtree
-RUN git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree
-RUN vim +"helptags ~/.vim/pack/vendor/start/nerdtree/doc" +qall
-RUN vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
+RUN git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree && \ 
+	vim +"helptags ~/.vim/pack/vendor/start/nerdtree/doc" +qall
+#RUN vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
 
 # Install tagbar 
-RUN git clone https://github.com/majutsushi/tagbar.git ~/.vim/pack/plugins/start/tagbar
-RUN vim +"helptags ~/.vim/pack/plugins/start/tagbar/doc" +qall
+RUN git clone https://github.com/majutsushi/tagbar.git ~/.vim/pack/plugins/start/tagbar && \
+	vim +"helptags ~/.vim/pack/plugins/start/tagbar/doc" +qall
 
 # Setup vim-go
 RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
@@ -106,12 +106,11 @@ RUN cd ~/.config/coc/extensions && npm install coc-go coc-json coc-snippets --gl
 RUN go get github.com/golang/protobuf/protoc-gen-go
 
 # Copy the .vimrc file and coc-settings.json
-WORKDIR /tmp
-RUN git clone https://github.com/ericwq/golangIDE && \
-        cd golangIDE/ && cp coc-settings.json ~/.vim/ && cp vimrc ~/.vimrc && cd .. && rm -rf golangIDE/
+COPY --chown=ide:develop coc-settings.json $HOME/.vim/
+COPY --chown=ide:develop vimrc $HOME/.vimrc
 
 # create the empty proj directory for volume mount
-RUN mkdir -p ~/proj
+RUN mkdir -p $HOME/proj
 
 # Setup the shell environement
 RUN touch $HOME/.bash_profile && \
