@@ -20,7 +20,6 @@ SHELL ["/bin/bash", "-c"]
 
 ENV HOME /home/ide
 ENV GOPATH /go
-#ENV PATH $GOPATH/bin:$PATH
 
 # Create user/group : ide/develop
 RUN addgroup develop && adduser -D -h $HOME -s /bin/bash -G develop ide
