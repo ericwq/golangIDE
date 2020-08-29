@@ -1,126 +1,100 @@
-FROM alpine:3.12
+FROM golang:1.15-alpine
 
+# golangci-lint need gcc, make and musl-dev
 RUN apk add --no-cache \
-	bash \
+        bash \
+        vim \
+        git \
+        curl \
+        ctags \
+        nodejs-current \
+        npm \
+        tzdata \
+        htop \
+        protoc \
 	gcc \
 	make \
-	vim \
-	git \
-	curl \
-	go \
-	ctags \
-	nodejs \
-	npm \
-	tzdata \
-	protoc
+	musl-dev
 
 SHELL ["/bin/bash", "-c"]
 
-ENV GOCACHE /tmp
 ENV HOME /home/ide
-ENV GOPATH $HOME/go
-ENV PATH $GOPATH/bin:$PATH
+ENV GOPATH /go
+#ENV PATH $GOPATH/bin:$PATH
 
 # Create user/group : ide/develop
 RUN addgroup develop && adduser -D -h $HOME -s /bin/bash -G develop ide
+RUN chown -R ide:develop $GOPATH
+
 USER ide:develop
 WORKDIR $HOME
-RUN touch $HOME/.bashrc && \
-	echo >> $HOME/.bashrc && \
-	echo 'export GOCACHE=/tmp' >> $HOME/.bashrc && \
-	echo 'export GO111MODULE=on' >>  $HOME/.bashrc && \
-	echo 'export GOPATH=$HOME/go' >> $HOME/.bashrc  
 
 # Prepare for the vim 8 plugin
 RUN mkdir -m 0755 -p ~/.vim
 
 # Install molokai colorscheme
 WORKDIR /tmp
-RUN git clone https://github.com/tomasr/molokai.git
-RUN cd molokai/ && mv colors ~/.vim && cd .. && rm -rf molokai/
+RUN git clone https://github.com/tomasr/molokai.git && \
+        cd molokai/ && mv colors ~/.vim && cd .. && rm -rf molokai/
 
-# Install Dockerfile plugin
+# Copy the .vimrc : vimrc1 contains only the plugin part
+COPY --chown=ide:develop vimrc1 $HOME/.vimrc
+
+# Install vim-plug
+# https://github.com/junegunn/vim-plug
+WORKDIR $HOME
+RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ 
+	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Install all the plugins
+RUN vim +'silent :PlugInstall' +qall
+
+# Prepare coc/extensions/package.json
+# TODO: this is a hack, just my guess, but it does work!
+RUN mkdir -m 0755 -p ~/.config/coc/extensions
 WORKDIR /tmp
-RUN git clone https://github.com/ekalinin/Dockerfile.vim.git && \
-	cd Dockerfile.vim && make install && cd .. &&  rm -rf Dockerfile.vim
+RUN touch package.json && \
+ 	echo '{"dependencies":{}}' >> package.json && \
+	mv package.json ~/.config/coc/extensions
 
-# Install lightline
-RUN git clone https://github.com/itchyny/lightline.vim ~/.vim/pack/plugins/start/lightline
-RUN vim +"helptags ~/.vim/pack/plugins/start/lightline/doc" +qall
+# move coc/extensions/package.json to the front did solve the docker bulid problem, 
+# but you need to wait a very long time for the installation
+# DOES'T WORK for Dockerfile: vim -c "execute 'silent GoUpdateBinaries' | execute 'quit'" 
+RUN vim +'silent :GoInstallBinaries' +qall
 
-# Install nerdtree
-RUN git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree
-RUN vim +"helptags ~/.vim/pack/vendor/start/nerdtree/doc" +qall
-RUN vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
+# Copy the coc-settings.json
+COPY --chown=ide:develop coc-settings.json $HOME/.vim/
 
-# Install tagbar 
-RUN git clone https://github.com/majutsushi/tagbar.git ~/.vim/pack/plugins/start/tagbar
-RUN vim +"helptags ~/.vim/pack/plugins/start/tagbar/doc" +qall
-
-# Setup vim-go
-RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
-# vim +GoInstallBinaries +qall
-# vim +'silent :GoInstallBinaries' +qall
-# bash -c 'echo | echo | vim +GoInstallBinaries +qall &>/dev/null'
-
-# Perform vim-go :GoInstallBinaries command
-# see .vim/pack/plugins/start/vim-go/plugin/go.vim for more detail
-ENV GO111MODULE=on
-RUN go get github.com/klauspost/asmfmt/cmd/asmfmt@master
-RUN go get github.com/go-delve/delve/cmd/dlv@master
-RUN go get github.com/kisielk/errcheck@master
-RUN go get github.com/davidrjenni/reftools/cmd/fillstruct@master
-RUN go get github.com/rogpeppe/godef@master
-RUN go get golang.org/x/tools/cmd/goimports@master
-RUN go get golang.org/x/lint/golint@master
-RUN go get golang.org/x/tools/gopls@latest
-RUN go get github.com/golangci/golangci-lint/cmd/golangci-lint@master
-RUN go get github.com/fatih/gomodifytags@master
-RUN go get golang.org/x/tools/cmd/gorename@master
-RUN go get github.com/jstemmer/gotags@master
-RUN go get golang.org/x/tools/cmd/guru@master
-RUN go get github.com/josharian/impl@master
-RUN go get honnef.co/go/tools/cmd/keyify@master
-RUN go get github.com/fatih/motion@master
-RUN go get github.com/koron/iferr@master
-
-# Install coc.nvim
-RUN mkdir -m 0755 -p ~/.vim/pack/coc/start
-WORKDIR /tmp
-RUN curl -O -L https://github.com/neoclide/coc.nvim/archive/v0.0.78.tar.gz
-RUN tar xvf v0.0.78.tar.gz
-RUN mv coc.nvim-0.0.78/  ~/.vim/pack/coc/start
-RUN rm -rf  v0.0.78.tar.gz
-
-# Install coc.nvim ~ extensions
-RUN mkdir -m 0755 -p ~/.config/coc/extensions 
-WORKDIR /tmp
-RUN touch package.json
-RUN echo '{"dependencies":{}}' >> package.json
-RUN mv package.json ~/.config/coc/extensions
-
-# Install COC extension 
-WORKDIR  ~/.config/coc/extensions
-RUN cd ~/.config/coc/extensions && npm install coc-json coc-go coc-snippets --global-style \
-        --ignore-scripts --no-bin-links --no-package-lock --only=prod
-
-# Copy the .vimrc file and coc-settings.json
-WORKDIR /tmp
-RUN git clone https://github.com/ericwq/golangIDE && \
-        cd golangIDE/ && cp coc-settings.json ~/.vim/ && cp vimrc ~/.vimrc && cd .. && rm -rf golangIDE/
+# Install COC extension: coc-go coc-json coc-snippets
+# DOES'T WORK for Dockerfile: vim +'silent :CocInstall coc-go coc-json coc-snippets' +qall
+#WORKDIR  ~/.config/coc/extensions
+#RUN cd ~/.config/coc/extensions && npm install coc-go coc-json coc-snippets --global-style \
+#        --ignore-scripts --no-bin-links --no-package-lock --only=prod
+RUN vim -c 'CocInstall -sync coc-go coc-snippets coc-json |q' +qall
 
 # Go plugin for the protocol compiler:protoc-gen-go
 RUN go get github.com/golang/protobuf/protoc-gen-go
 
-# Clean go environement
-RUN go clean -cache && go clean -testcache
-USER root
-#RUN cd $HOME/go && rm -rf pkg
+# Copy the .vimrc : vimrc2 is the complete version
+COPY --chown=ide:develop vimrc2 $HOME/.vimrc
 
-# Install time zone data
-# RUN apk add tzdata
+# create the empty proj directory for volume mount
+RUN mkdir -p $HOME/proj
 
-# final command
-USER ide:develop
+# Setup the shell environement
+RUN touch $HOME/.bash_profile && \
+	echo 'if [ -f ~/.bashrc ]; then . ~/.bashrc; fi' >> $HOME/.bash_profile
+RUN touch $HOME/.bashrc && \
+	echo >> $HOME/.bashrc && \
+	echo 'export GO111MODULE=on' >>  $HOME/.bashrc && \
+	echo 'export GOPATH=/go' >> $HOME/.bashrc && \
+ 	echo 'export LANG=en_US.UTF-8' >> $HOME/.bashrc  && \
+	echo 'export PATH=$PATH' >> $HOME/.bashrc  && \
+	echo 'alias vi=vim' >> $HOME/.bashrc && \
+	echo "export PS1='\u@\h:\w $ '" >> $HOME/.bashrc
+
+# Cleaning
+RUN go clean -cache -modcache -testcache 
+
 WORKDIR $HOME
 CMD ["/bin/bash"]

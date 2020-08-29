@@ -2,16 +2,18 @@ FROM golang:1.15-alpine
 
 RUN apk add --no-cache \
 	bash \
-	make \
+	gcc \
 	vim \
 	git \
 	curl \
 	ctags \
-	nodejs \
+	nodejs-current \
 	npm \
 	tzdata \
 	htop \
-	protoc
+	protoc \
+	make \
+	musl-dev
 
 SHELL ["/bin/bash", "-c"]
 
@@ -68,10 +70,9 @@ RUN go get golang.org/x/tools/cmd/goimports@master
 RUN go get golang.org/x/lint/golint@master
 RUN go get golang.org/x/tools/gopls@latest
 
-# RUN go get github.com/golangci/golangci-lint/cmd/golangci-lint@master
+RUN go get github.com/golangci/golangci-lint/cmd/golangci-lint@master
 # refer to https://golangci-lint.run/usage/install/
-# use curl to remove gcc dependency
-RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.30.0
+# RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.30.0
 
 RUN go get github.com/fatih/gomodifytags@master
 RUN go get golang.org/x/tools/cmd/gorename@master
@@ -81,6 +82,9 @@ RUN go get github.com/josharian/impl@master
 RUN go get honnef.co/go/tools/cmd/keyify@master
 RUN go get github.com/fatih/motion@master
 RUN go get github.com/koron/iferr@master
+
+# Go plugin for the protocol compiler:protoc-gen-go
+RUN go get github.com/golang/protobuf/protoc-gen-go
 
 # Install coc.nvim
 RUN mkdir -m 0755 -p ~/.vim/pack/coc/start
@@ -101,9 +105,6 @@ RUN touch package.json && \
 WORKDIR  ~/.config/coc/extensions
 RUN cd ~/.config/coc/extensions && npm install coc-go coc-json coc-snippets --global-style \
         --ignore-scripts --no-bin-links --no-package-lock --only=prod
-
-# Go plugin for the protocol compiler:protoc-gen-go
-RUN go get github.com/golang/protobuf/protoc-gen-go
 
 # Copy the .vimrc file and coc-settings.json
 COPY --chown=ide:develop coc-settings.json $HOME/.vim/
@@ -126,9 +127,9 @@ RUN touch $HOME/.bashrc && \
 	echo "export PS1='\u@\h:\w $ '" >> $HOME/.bashrc
 
 # Cleaning  
-RUN go clean -cache && go clean -testcache
+# RUN go clean -cache && go clean -testcache
 USER root
-RUN apk del make 
+RUN apk del make musl-dev
 
 # Final command
 USER ide:develop

@@ -8,16 +8,21 @@ ENV PATH $GOPATH/bin:$PATH
 ENV GO111MODULE=on
 
 # Install vim git etc.
+# gcc is required by coc
 RUN apk update && apk add --no-cache \
 	bash \
 	vim \
 	git \
 	ctags \
-	nodejs \
+	nodejs-current \
 	tzdata \
 	htop \
 	npm \
-	protoc
+	make \
+	curl \
+	protoc \
+	gcc 
+# golangci-lint need this
 
 SHELL ["/bin/bash", "-c"]
 
@@ -27,10 +32,7 @@ RUN addgroup develop && adduser -D -h $HOME -s /bin/bash -G develop ide
 ######################################
 FROM idebase AS idebuilder
 
-# Add build utils
-RUN apk add --no-cache \
-	make \
-	curl 
+RUN apk add musl-dev
 
 # Switch to ide user
 USER ide:develop
@@ -64,6 +66,7 @@ RUN git clone https://github.com/majutsushi/tagbar.git ~/.vim/pack/plugins/start
 
 # Setup vim-go
 RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
+
 # Perform vim-go :GoInstallBinaries command
 # v1 vim +GoInstallBinaries +qall
 # v2 vim +'silent :GoInstallBinaries' +qall
@@ -78,10 +81,9 @@ RUN go get golang.org/x/tools/cmd/goimports@master
 RUN go get golang.org/x/lint/golint@master
 RUN go get golang.org/x/tools/gopls@latest
 
-# RUN go get github.com/golangci/golangci-lint/cmd/golangci-lint@master
+RUN go get github.com/golangci/golangci-lint/cmd/golangci-lint@master
 # refer to https://golangci-lint.run/usage/install/
-# use curl to remove gcc dependency
-RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.30.0
+# RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.30.0
 
 RUN go get github.com/fatih/gomodifytags@master
 RUN go get golang.org/x/tools/cmd/gorename@master
@@ -139,8 +141,8 @@ FROM idebase
 USER ide:develop
 WORKDIR $HOME
 
-# Preparing the GOPATH pkg directory
-RUN mkdir -p $HOME/go/pkg
+# Preparing the GOPATH pkg directory TODO 
+# RUN mkdir -p $HOME/go/pkg
 
 # Preparing the coc environment 
 COPY --from=idebuilder --chown=ide:develop $HOME/.config/ 	$HOME/.config/
@@ -149,8 +151,9 @@ COPY --from=idebuilder --chown=ide:develop $HOME/.npm/ 		$HOME/.npm/
 # Preparing the vim envrionment
 COPY --from=idebuilder --chown=ide:develop $HOME/.vim/  	$HOME/.vim/
 
-# Preparing the GOPATH/bin/*
-COPY --from=idebuilder --chown=ide:develop $HOME/go/bin/ 	$HOME/go/bin/
+# Preparing the GOPATH/bin/* TODO
+#COPY --from=idebuilder --chown=ide:develop $HOME/go/bin/ 	$HOME/go/bin/
+COPY --from=idebuilder --chown=ide:develop $HOME/go/ 		$HOME/go/
 
 # Preparing the vim and bash configuration
 COPY --from=idebuilder --chown=ide:develop $HOME/.vimrc 	$HOME/.vimrc
