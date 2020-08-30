@@ -59,7 +59,8 @@ RUN touch package.json && \
 # move coc/extensions/package.json to the front did solve the docker bulid problem, 
 # but you need to wait a very long time for the installation
 # DOES'T WORK for Dockerfile: vim -c "execute 'silent GoUpdateBinaries' | execute 'quit'" 
-RUN vim +'silent :GoInstallBinaries' +qall
+RUN vim +'silent :GoInstallBinaries' +qall && \
+	go clean -cache -modcache -testcache
 
 # Copy the coc-settings.json
 COPY --chown=ide:develop coc-settings.json $HOME/.vim/
@@ -69,10 +70,13 @@ COPY --chown=ide:develop coc-settings.json $HOME/.vim/
 #WORKDIR  ~/.config/coc/extensions
 #RUN cd ~/.config/coc/extensions && npm install coc-go coc-json coc-snippets --global-style \
 #        --ignore-scripts --no-bin-links --no-package-lock --only=prod
-RUN vim -c 'CocInstall -sync coc-go coc-snippets coc-json |q' +qall
+RUN vim -c 'CocInstall -sync coc-go coc-snippets coc-json |q' +qall && \
+	npm cache clean --force
 
 # Go plugin for the protocol compiler:protoc-gen-go
-RUN go get github.com/golang/protobuf/protoc-gen-go
+RUN go get github.com/golang/protobuf/protoc-gen-go && \
+	go clean -cache -modcache -testcache && \
+	rm -rf /go/src/*
 
 # Copy the .vimrc : vimrc2 is the complete version
 COPY --chown=ide:develop vimrc2 $HOME/.vimrc
@@ -93,7 +97,7 @@ RUN touch $HOME/.bashrc && \
 	echo "export PS1='\u@\h:\w $ '" >> $HOME/.bashrc
 
 # Cleaning
-RUN go clean -cache -modcache -testcache 
+# RUN go clean -cache -modcache -testcache 
 
 WORKDIR $HOME
 CMD ["/bin/bash"]
