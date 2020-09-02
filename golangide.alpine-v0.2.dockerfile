@@ -108,7 +108,7 @@ RUN cd ~/.config/coc/extensions && npm install coc-go coc-json coc-snippets --gl
 
 # Copy the .vimrc file and coc-settings.json
 COPY --chown=ide:develop coc-settings.json $HOME/.vim/
-COPY --chown=ide:develop vimrc $HOME/.vimrc
+COPY --chown=ide:develop vim-config/vimrc $HOME/.vimrc
 
 # create the empty proj directory for volume mount
 RUN mkdir -p $HOME/proj

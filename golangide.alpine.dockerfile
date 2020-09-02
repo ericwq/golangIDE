@@ -37,7 +37,7 @@ RUN git clone https://github.com/tomasr/molokai.git && \
         cd molokai/ && mv colors ~/.vim && cd .. && rm -rf molokai/
 
 # Copy the .vimrc : vimrc1 contains only the plugin part
-COPY --chown=ide:develop vimrc1 $HOME/.vimrc
+COPY --chown=ide:develop vim-config/vimrc1 $HOME/.vimrc
 
 # Install vim-plug
 # https://github.com/junegunn/vim-plug
@@ -79,7 +79,7 @@ RUN go get github.com/golang/protobuf/protoc-gen-go && \
 	rm -rf /go/src/*
 
 # Copy the .vimrc : vimrc2 is the complete version
-COPY --chown=ide:develop vimrc2 $HOME/.vimrc
+COPY --chown=ide:develop vim-config/vimrc2 $HOME/.vimrc
 
 # create the empty proj directory for volume mount
 RUN mkdir -p $HOME/proj

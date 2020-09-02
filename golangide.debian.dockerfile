@@ -100,7 +100,7 @@ RUN go clean -cache && go clean -testcache
 # Copy the .vimrc file and coc-settings.json
 WORKDIR /tmp
 RUN git clone https://github.com/ericwq/golangIDE && \
-	cd golangIDE/ && cp coc-settings.json ~/.vim/ && cp vimrc ~/.vimrc && cd .. && rm -rf golangIDE/
+	cd golangIDE/ && cp coc-settings.json ~/.vim/ && cp vim-config/vimrc ~/.vimrc && cd .. && rm -rf golangIDE/
 
 #RUN cd ~/go && rm -rf src pkg 
 
