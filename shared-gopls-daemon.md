@@ -22,10 +22,9 @@ after several days digging, i found the reason.
 ## Root cause: vim-go and coc.nvim use different TMPDIR
 gopls daemon process ```/go/bin/gopls serve -listen ``` was stared by the sidecar process ```/go/bin/gopls -remote=auto ``` . follow this hint,
 i found the setup code for gopls daemon process. in [autostart_posix.go](https://github.com/golang/tools/blob/master/internal/lsp/lsprpc/autostart_posix.go), 
-line 71 use the ```os.TempDir()```to build the unix socket address.
+line 71 use the ```os.TempDir()```to build the unix socket address. (how to find autostart_posix.go is another long story, if a lot of people required i will consider write it down.)
 
-vim-go did nothing special to TMPDIR, it's just plain ```/tmp/```. while coc.nvim changed TMPDIR to ```/tmp/nvimPaFflp/```. both did the right thing. but put it together. 
-gopls will start two daemon process.
+vim-go did nothing special to TMPDIR, it's just plain ```/tmp/```. while coc.nvim changed TMPDIR to ```/tmp/nvimPaFflp/```. both did the right thing. but put it together. gopls will start with two daemon process instead of share it.
 
 ## Verify
 force coc.nvim to use the ```/tmp/``` directory for TMPDIR is the easiest way to verify the analysis. the modification procedure is too brute to show here (sorry coc.nvim guys). while the result is what we expected, see bellow.
@@ -64,4 +63,4 @@ ide@golangide:~/proj/coc.nvim $ cd ../vim-go/
 ide@golangide:~/proj/vim-go $ grep -r TMPDIR *
 autoload/go/util.vim:    let l:dirs = [$TMPDIR, '/tmp', './', $HOME]
 ```
-then open the ```autoload/coc/client.vim```, and changed the TMPDIR setting. you can verify it by yourself. client.vim is script. easy to change and see the result.
+then open the ```autoload/coc/client.vim``` and changed the TMPDIR setting. you can verify it by yourself. client.vim is script. easy to change and see the result.
