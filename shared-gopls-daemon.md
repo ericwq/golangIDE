@@ -28,8 +28,7 @@ vim-go did nothing special to TMPDIR, it's just plain ```/tmp/```. while coc.nvi
 gopls will start two daemon process.
 
 ## Verify
-force coc.nvim to use the ```/tmp/``` directory for TMPDIR is the easiest way to verify the analysis. the procedure is very brute (sorry coc.nvim guys) 
-while the result is what we anticipated,see bellow.
+force coc.nvim to use the ```/tmp/``` directory for TMPDIR is the easiest way to verify the analysis. the modification procedure is too brute to show here (sorry coc.nvim guys). while the result is what we expected, see bellow.
 ```
 Mem: 1469560K used, 4623752K free, 708K shrd, 89236K buff, 582528K cached
 CPU:   0% usr   0% sys   0% nic  98% idle   0% io   0% irq   0% sirq
@@ -45,8 +44,8 @@ Load average: 0.49 0.32 0.22 2/495 23634
 now there is only ONE **shared daemon process**. 
 
 ## Solution
-the suggest solution is to change the gopls code. because ```os.TempDir()``` is very easy to be changed by others. it's up to the gopls developer.
-I already report the issue to the gopls team. see this [post](https://groups.google.com/g/golang-tools/c/y3OQNIudLzQ/m/7JYRgEZSAgAJ)
+the suggest solution is to change the gopls code. because ```TMPDIR``` is very easy to be changed by others. how to modify gopls code is up to the gopls developer.
+I already reported the issue to the gopls team. see this [post](https://groups.google.com/g/golang-tools/c/y3OQNIudLzQ/m/7JYRgEZSAgAJ)
 
 ## Code clue
 ```
@@ -65,4 +64,4 @@ ide@golangide:~/proj/coc.nvim $ cd ../vim-go/
 ide@golangide:~/proj/vim-go $ grep -r TMPDIR *
 autoload/go/util.vim:    let l:dirs = [$TMPDIR, '/tmp', './', $HOME]
 ```
-then open the ```autoload/coc/client.vim```, and changed the TMPDIR. you can verify it by yourself. client.vim is script. easy to change and see the result.
+then open the ```autoload/coc/client.vim```, and changed the TMPDIR setting. you can verify it by yourself. client.vim is script. easy to change and see the result.
