@@ -19,7 +19,7 @@ gopls, vim-go, coc.nvim and coc-go. eachone believes they are doing the right th
 
 after several days digging, i found the reason.
 
-## Root cause: coc.nvim set env TMPDIR
+## Root cause: vim-go and coc.nvim use different TMPDIR
 gopls daemon process ```/go/bin/gopls serve -listen ``` was stared by the sidecar process ```/go/bin/gopls -remote=auto ``` . follow this hint,
 i found the setup code for gopls daemon process. in [autostart_posix.go](https://github.com/golang/tools/blob/master/internal/lsp/lsprpc/autostart_posix.go), 
 line 71 use the ```os.TempDir()```to build the unix socket address.
@@ -45,8 +45,8 @@ Load average: 0.49 0.32 0.22 2/495 23634
 now there is only ONE **shared daemon process**. 
 
 ## Solution
-the  reasonable solution is to change the gopls code. because ```os.TempDir()``` is very easy to be changed by others. it's up to the gopls developer.
-I already report the issue to the gopls team. see this []()
+the suggest solution is to change the gopls code. because ```os.TempDir()``` is very easy to be changed by others. it's up to the gopls developer.
+I already report the issue to the gopls team. see this [post](https://groups.google.com/g/golang-tools/c/y3OQNIudLzQ)
 
 ## Code clue
 ```
