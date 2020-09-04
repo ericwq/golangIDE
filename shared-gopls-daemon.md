@@ -46,7 +46,7 @@ now there is only ONE **shared daemon process**.
 
 ## Solution
 the suggest solution is to change the gopls code. because ```os.TempDir()``` is very easy to be changed by others. it's up to the gopls developer.
-I already report the issue to the gopls team. see this [post](https://groups.google.com/g/golang-tools/c/y3OQNIudLzQ)
+I already report the issue to the gopls team. see this [post](https://groups.google.com/g/golang-tools/c/y3OQNIudLzQ/m/7JYRgEZSAgAJ)
 
 ## Code clue
 ```
