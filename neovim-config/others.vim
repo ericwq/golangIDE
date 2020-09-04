@@ -32,7 +32,28 @@ nmap <F6> :nohlsearch<CR>
 nmap <F5> :NERDTreeToggle<CR>
 autocmd FileType go nmap <F7> :GoSameIdsToggle<CR>
 
+"How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" open nerdtree automacticlly
+autocmd vimenter * NERDTree |  wincmd p
+
+" Check if NERDTree is open or active
+function! IsNERDTreeOpen()        
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncTree()
+  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
+" Highlight currently open buffer in NERDTree
+autocmd BufEnter * call SyncTree()
 
 " delve windows configuration
 "let g:go_debug_windows = {
