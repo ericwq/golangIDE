@@ -27,16 +27,20 @@ let g:tagbar_type_go = {
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
-nmap <F8> :TagbarToggle<CR>
-nmap <F6> :nohlsearch<CR>
 nmap <F5> :NERDTreeToggle<CR>
+nmap <F6> :nohlsearch<CR>
 autocmd FileType go nmap <F7> :GoSameIdsToggle<CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :NERDTreeFind <CR>
 
-"How can I close vim if the only window left open is a NERDTree?
+" How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " open nerdtree automacticlly
 autocmd vimenter * NERDTree |  wincmd p
+
+" let NERDTreeMinimalUI = 1
+" let NERDTreeDirArrows = 1
 
 " Check if NERDTree is open or active
 function! IsNERDTreeOpen()        
@@ -53,7 +57,7 @@ function! SyncTree()
 endfunction
 
 " Highlight currently open buffer in NERDTree
-autocmd BufEnter * call SyncTree()
+"autocmd BufEnter * call SyncTree()
 
 " delve windows configuration
 "let g:go_debug_windows = {
