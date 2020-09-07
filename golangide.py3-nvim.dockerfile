@@ -52,11 +52,6 @@ RUN pip install pynvim
 # Install all the vim-plug plugins
 RUN nvim --headless -c 'PlugInstall' -c qall
 
-# Prepare the coc, vim-go and others config file
-COPY --chown=ide:develop ./neovim-config/coc.vim 	$HOME/.config/nvim/plug-config/coc.vim
-COPY --chown=ide:develop ./neovim-config/vim-go.vim 	$HOME/.config/nvim/plug-config/vim-go.vim
-COPY --chown=ide:develop ./neovim-config/others.vim 	$HOME/.config/nvim/plug-config/others.vim
-
 # Prepare the coc-settings.json and package.json
 COPY --chown=ide:develop ./neovim-config/package.json 	$HOME/.config/coc/extensions/package.json
 COPY --chown=ide:develop coc-settings.json 		$HOME/.config/nvim/
@@ -77,6 +72,11 @@ RUN go get github.com/golang/protobuf/protoc-gen-go && \
 
 # Copy the init.vim: this is the full version
 COPY --chown=ide:develop ./neovim-config/init.vim 	$HOME/.config/nvim/init.vim
+
+# Prepare the coc, vim-go and others config file
+COPY --chown=ide:develop ./neovim-config/coc.vim 	$HOME/.config/nvim/plug-config/coc.vim
+COPY --chown=ide:develop ./neovim-config/vim-go.vim 	$HOME/.config/nvim/plug-config/vim-go.vim
+COPY --chown=ide:develop ./neovim-config/others.vim 	$HOME/.config/nvim/plug-config/others.vim
 
 # create the empty proj directory for volume mount
 RUN mkdir -p $HOME/proj
