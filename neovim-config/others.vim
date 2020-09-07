@@ -39,6 +39,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " open nerdtree automacticlly
 autocmd vimenter * NERDTree |  wincmd p
 
+" opoen tagbar automaticlly
+autocmd FileType go TagbarOpen
+
 " let NERDTreeMinimalUI = 1
 " let NERDTreeDirArrows = 1
 
