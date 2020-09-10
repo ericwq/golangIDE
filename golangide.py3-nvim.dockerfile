@@ -62,7 +62,7 @@ RUN nvim --headless -c 'GoInstallBinaries' -c qall && \
 
 # Install COC extension: coc-go coc-json coc-snippets
 WORKDIR  $HOME/.config/coc/extensions
-RUN nvim --headless -c 'CocInstall -sync coc-go coc-json coc-snippets' -c qall &&\
+RUN nvim --headless -c 'CocInstall -sync coc-go coc-json coc-snippets coc-pairs' -c qall &&\
 	npm cache clean --force
 
 # Go plugin for the protocol compiler:protoc-gen-go
