@@ -10,7 +10,7 @@ just pull docker image from [hub.docker.com](https://hub.docker.com/r/ericwq057/
 you need to read [shared gopls daemon](shared-gopls-daemon.md) first. 
 
 ### How to setup a shared gopls "daemon" process
-if sestup incorrectly, gopls will occupied very huge memory >6G mem. I have spent a lot of time to setup vim-go and coc and coc-go. Now gopls  only comsume 2G-3G mem for my daily development. Here is a notes about how to setup it correctly. according to the [Running gopls as a daemon](https://github.com/golang/tools/blob/master/gopls/doc/daemon.md)  and my verificaiton. gopls already support this kind of scenario. see the following.
+if setup incorrectly, gopls will occupied very huge memory >6G mem. I have spent a lot of time to setup vim-go and coc and coc-go. Now gopls  only comsume 100M-4G mem for my daily development. Here is a notes about how to setup it correctly. according to the [Running gopls as a daemon](https://github.com/golang/tools/blob/master/gopls/doc/daemon.md)  and my verificaiton. gopls already support this kind of scenario. see the following.
 this is a rewrite content. my original post is [here](https://github.com/josa42/coc-go/issues/76#issuecomment-678752724)
 
 ### Action:  config coc-setting.json for coc-go, nothing to do with vim-go
