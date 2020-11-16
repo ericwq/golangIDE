@@ -40,7 +40,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd vimenter * NERDTree |  wincmd p
 
 " opoen tagbar automaticlly
-autocmd FileType go TagbarOpen
+"autocmd FileType go TagbarOpen
 
 " Position the (global) quickfix window at the very bottom of the window
 " (useful for making sure that it appears underneath splits)
