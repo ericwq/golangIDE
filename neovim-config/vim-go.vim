@@ -159,8 +159,8 @@ augroup go
   autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 augroup END
 
-" let g:go_def_mode='gopls'
-" let g:go_info_mode='gopls'
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 " automatically show the information whenever you move your cursor
 let g:go_auto_type_info = 1
