@@ -3,7 +3,7 @@
 a neovim based golang IDE. includes go, vim-go, tagbar, lightline, nerdtree and coc.nvim. This site is just a support site for the docker container.
 just pull docker image from [hub.docker.com](https://hub.docker.com/r/ericwq057/golangide) and run it. 
 ```
-% docker pull docker push ericwq057/golangide:v0.3.3-alpine-nvim
+% docker pull docker push ericwq057/golangide:v0.4.3
 ```
 
 # Before read the following, 
@@ -13,7 +13,7 @@ you need to read [shared gopls daemon](shared-gopls-daemon.md) first.
 if setup incorrectly, gopls will occupied very huge memory >6G mem. I have spent a lot of time to setup vim-go and coc and coc-go. Now gopls  only comsume 100M-4G mem for my daily development. Here is a notes about how to setup it correctly. according to the [Running gopls as a daemon](https://github.com/golang/tools/blob/master/gopls/doc/daemon.md)  and my verificaiton. gopls already support this kind of scenario. see the following.
 this is a rewrite content. my original post is [here](https://github.com/josa42/coc-go/issues/76#issuecomment-678752724)
 
-### Action:  config coc-setting.json for coc-go, nothing to do with vim-go
+### Action:  config coc-setting.json for coc-go
 ```json
 {
   "go.goplsArgs": ["-remote=auto", "-logfile", "/tmp/gopls.log"],
@@ -23,6 +23,13 @@ this is a rewrite content. my original post is [here](https://github.com/josa42/
 - [x] the 1st thing is the **go.goplsPath** part. you need to use the absolute path to specify the gopls, otherwise it might use different gopls version, like ```coc/extensions/coc-go-data/bin/gopls```. please change it to your gopls install path.
 - [x] the 2nd thing is the **go.goplsArgs** part. you need to provide the ```-remote=auto``` args, because that is what gopls required. i add the ```-logfile``` args to help us identify gopls process. see bellow.
 - [x] do **NOT** perform any special gopls configuration for vim-go, just leave it. in vim-go gopls will use ```remote=auto``` by default. that is enough for our purpose.
+
+### Action:  enable gopls for vim-go
+```vimscript
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+```
+this is an important step to setup vim-go. according to my experience, this can reduce 50% memory consumption by gopls.
 
 ### Caution: don't config languageserver in coc-setting.json and install coc-go at the same time
 if you config languageserver in coc-setting.json, and instal coc-go, just as i did before. you will get into trouble.  just install coc-go is enough. if you do both thing, you will start two(maybe more) gopls process by coc. that will occupied double memory than you expect.
