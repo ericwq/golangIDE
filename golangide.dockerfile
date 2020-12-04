@@ -1,4 +1,4 @@
-FROM golang:1.15.5-alpine
+FROM golang:1.15.6-alpine
 LABEL maintainer="ericwq057@qq.com"
 
 # golangci-lint need gcc, make and musl-dev
