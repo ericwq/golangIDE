@@ -10,7 +10,7 @@ Plug 'crusoexia/vim-monokai'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'preservim/nerdtree'
-Plug 'majutsushi/tagbar'
+Plug 'preservim/tagbar'
 Plug 'fatih/vim-go'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
