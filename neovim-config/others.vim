@@ -75,3 +75,5 @@ endfunction
 "      \ 'stack':      'rightbelow 10new',
 "\ }
 
+" fzf configuration
+nnoremap <silent> <Leader><Space> :FZF<CR>

@@ -13,6 +13,7 @@ Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
 Plug 'fatih/vim-go'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'tag': '0.21.1' }
 
 call plug#end()
 

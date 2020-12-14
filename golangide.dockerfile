@@ -18,6 +18,7 @@ RUN apk add --no-cache \
 	python3-dev \
 	gcc \
 	make \
+	fzf \
 	musl-dev
 
 SHELL ["/bin/bash", "-c"]
