@@ -33,6 +33,14 @@ autocmd FileType go nmap <F7> :GoSameIdsToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 nmap <F9> :NERDTreeFind <CR>
 
+" Spell Check in Nvim
+set spelllang=en,cjk
+nnoremap <silent> <F10> :set spell!<cr>
+" [s: go to previous spell error
+" ]s: go to next spell error
+" To correct an error, use z=
+" If you think a word is not a spell error, you can use zg to add the word to your spell list.
+
 " How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
