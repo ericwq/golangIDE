@@ -1,9 +1,13 @@
 FROM golang:1.15.6-alpine
 LABEL maintainer="ericwq057@qq.com"
 
-# golangci-lint need gcc, make and musl-dev
+# This is the runtime package it contains
+# base: bash colordiff git curl neovim tzdata htop
+# for neovim environment: 
 # python3 for coc python provider
+# nodejs-current and npm for noodejs provider
 RUN apk add --no-cache \
+	colordiff \
         bash \
         neovim \
         git \
@@ -15,11 +19,7 @@ RUN apk add --no-cache \
         htop \
         protoc \
 	py3-pip \
-	python3-dev \
-	gcc \
-	make \
-	fzf \
-	musl-dev
+	fzf 
 
 SHELL ["/bin/bash", "-c"]
 
@@ -48,9 +48,6 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
 ## Copy the .init.vim : init0.vim contains only the plugin part
 COPY --chown=ide:develop ./neovim-config/init0.vim 	$HOME/.config/nvim/init.vim
 
-# Install neovim python provider pynvim
-RUN pip install pynvim
-
 # Install all the vim-plug plugins
 RUN nvim --headless -c 'PlugInstall' -c qall
 
@@ -58,9 +55,15 @@ RUN nvim --headless -c 'PlugInstall' -c qall
 COPY --chown=ide:develop ./neovim-config/package.json 	$HOME/.config/coc/extensions/package.json
 COPY --chown=ide:develop coc-settings.json 		$HOME/.config/nvim/
 
-# GoInstallBinaries for vim-go: need to wait a very long time for install
-RUN nvim --headless -c 'GoInstallBinaries' -c qall && \
-	go clean -cache -modcache -testcache
+USER root
+RUN 	apk add --no-cache --virtual .build-deps python3-dev g++ gcc make musl-dev \
+# Install neovim python provider pynvim
+	&& su  ide -c 'pip3 install pynvim' \
+# Run vim-go 'GoInstallBinaries' command
+	&& su  ide -c "nvim --headless -c 'GoInstallBinaries' -c qall" \ 
+	&& go clean -cache -modcache -testcache \
+	&& apk del --no-network .build-deps
+USER ide:develop
 
 # Install COC extension: coc-go coc-json coc-snippets
 WORKDIR  $HOME/.config/coc/extensions
