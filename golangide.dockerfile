@@ -71,7 +71,8 @@ RUN nvim --headless -c 'CocInstall -sync coc-go coc-json coc-snippets coc-pairs'
 	npm cache clean --force
 
 # Go plugin for the protocol compiler:protoc-gen-go
-RUN go get github.com/golang/protobuf/protoc-gen-go && \
+RUN go get google.golang.org/protobuf/cmd/protoc-gen-go \
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc && \
 	go clean -cache -modcache -testcache && \
 	rm -rf /go/src/*
 
