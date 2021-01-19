@@ -4,5 +4,9 @@
   "go.goplsOptions": {
     "completeUnimported": true,
     "usePlaceholders": true
+  },
+  "markdownlint.config": {
+	  "default":true,
+	  "line_length": false
   }
 }

@@ -67,7 +67,7 @@ USER ide:develop
 
 # Install COC extension: coc-go coc-json coc-snippets
 WORKDIR  $HOME/.config/coc/extensions
-RUN nvim --headless -c 'CocInstall -sync coc-go coc-json coc-snippets coc-pairs' -c qall &&\
+RUN nvim --headless -c 'CocInstall -sync coc-go coc-json coc-snippets coc-pairs coc-markdownlint' -c qall &&\
 	npm cache clean --force
 
 # Go plugin for the protocol compiler:protoc-gen-go
