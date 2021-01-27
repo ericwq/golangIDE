@@ -19,6 +19,7 @@ RUN apk add --no-cache \
         htop \
         protoc \
 	py3-pip \
+	ripgrep \
 	fzf 
 
 SHELL ["/bin/bash", "-c"]

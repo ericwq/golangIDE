@@ -27,6 +27,7 @@ let g:tagbar_type_go = {
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
+nmap <F4> :FZF<CR>
 nmap <F5> :NERDTreeToggle<CR>
 nmap <F6> :nohlsearch<CR>
 autocmd FileType go nmap <F7> :GoSameIdsToggle<CR>
@@ -84,4 +85,6 @@ endfunction
 "\ }
 
 " fzf configuration
-nnoremap <silent> <Leader><Space> :FZF<CR>
+nnoremap <silent> <Leader><Space> :Rg<CR>
+
+let $FZF_DEFAULT_COMMAND = 'rg --files'
