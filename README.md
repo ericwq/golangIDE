@@ -3,7 +3,7 @@
 a neovim based golang IDE. includes go, vim-go, tagbar, lightline, nerdtree and coc.nvim. This site is just a support site for the docker container.
 just pull docker image from [hub.docker.com](https://hub.docker.com/r/ericwq057/golangide) and run it. 
 ```
-% docker pull docker push ericwq057/golangide:v0.4.3
+% docker pull docker push ericwq057/golangide:v0.5.3
 ```
 
 # Before read the following, 
