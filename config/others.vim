@@ -88,3 +88,8 @@ endfunction
 nnoremap <silent> <Leader><Space> :Rg<CR>
 
 let $FZF_DEFAULT_COMMAND = 'rg --files'
+
+" https://github.com/tpope/vim-markdown
+let g:markdown_fenced_languages = ['javascript', 'html', 'bash=sh']
+let g:markdown_minlines = 100
+

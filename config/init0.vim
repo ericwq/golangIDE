@@ -18,6 +18,6 @@ Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
-"source $HOME/.config/nvim/plug-config/vim-go.vim
-"source $HOME/.config/nvim/plug-config/coc.vim
-"source $HOME/.config/nvim/plug-config/others.vim
+"source $HOME/.config/nvim/config/vim-go.vim
+"source $HOME/.config/nvim/config/coc.vim
+"source $HOME/.config/nvim/config/others.vim

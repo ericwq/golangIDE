@@ -44,7 +44,7 @@ endif
 " This enables us to undo files even if you exit Vim.
 if has('persistent_undo')
   set undofile
-  set undodir=~/.config/vim/tmp/undo//
+  set undodir=~/.config/nvim/tmp/undo//
 endif
 
 " Colorscheme

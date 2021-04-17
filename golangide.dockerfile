@@ -37,7 +37,7 @@ WORKDIR $HOME
 # Prepare for the nvim
 RUN mkdir -p $HOME/.config/nvim/ && \
 	mkdir -p $HOME/.config/nvim/plugged && \
-	mkdir -p $HOME/.config/nvim/plug-config && \
+	mkdir -p $HOME/.config/nvim/config && \
 	mkdir -p $HOME/.config/coc/extensions
 
 # Install vim-plug
@@ -47,14 +47,14 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 ## Copy the .init.vim : init0.vim contains only the plugin part
-COPY --chown=ide:develop ./neovim-config/init0.vim 	$HOME/.config/nvim/init.vim
+COPY --chown=ide:develop ./config/init0.vim 		$HOME/.config/nvim/init.vim
 
 # Install all the vim-plug plugins
 RUN nvim --headless -c 'PlugInstall' -c qall
 
 # Prepare the coc-settings.json and package.json
-COPY --chown=ide:develop ./neovim-config/package.json 	$HOME/.config/coc/extensions/package.json
-COPY --chown=ide:develop coc-settings.json 		$HOME/.config/nvim/
+COPY --chown=ide:develop ./config/package.json 		$HOME/.config/coc/extensions/package.json
+COPY --chown=ide:develop ./config/coc-settings.json 	$HOME/.config/nvim/
 
 USER root
 RUN 	apk add --no-cache --virtual .build-deps python3-dev g++ gcc make musl-dev \
@@ -78,12 +78,12 @@ RUN go get google.golang.org/protobuf/cmd/protoc-gen-go \
 	rm -rf /go/src/*
 
 # Copy the init.vim: this is the full version
-COPY --chown=ide:develop ./neovim-config/init.vim 	$HOME/.config/nvim/init.vim
+COPY --chown=ide:develop ./config/init.vim 	$HOME/.config/nvim/init.vim
 
 # Prepare the coc, vim-go and others config file
-COPY --chown=ide:develop ./neovim-config/coc.vim 	$HOME/.config/nvim/plug-config/coc.vim
-COPY --chown=ide:develop ./neovim-config/vim-go.vim 	$HOME/.config/nvim/plug-config/vim-go.vim
-COPY --chown=ide:develop ./neovim-config/others.vim 	$HOME/.config/nvim/plug-config/others.vim
+COPY --chown=ide:develop ./config/coc.vim 	$HOME/.config/nvim/config/coc.vim
+COPY --chown=ide:develop ./config/vim-go.vim 	$HOME/.config/nvim/config/vim-go.vim
+COPY --chown=ide:develop ./config/others.vim 	$HOME/.config/nvim/config/others.vim
 
 # create the empty proj directory for volume mount
 RUN mkdir -p $HOME/proj
