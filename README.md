@@ -2,26 +2,6 @@
 
 A neovim based golang IDE, based on [alpine](https://www.alpinelinux.org/) linux, go language server enabled, syntax highlight IDE. Just pull docker image from [hub.docker.com](https://hub.docker.com/r/ericwq057/golangide) and run it.
 
-```sh
-% docker pull ericwq057/golangide:latest
-
-% docker run -it -d -h golangide  --env TZ=Asia/Shanghai  --name golang \
-  --mount source=proj-vol,target=/home/ide/proj \
-  --mount type=bind,source=YOUR-SHARED-DIRECTORY,target=/home/ide/develop \
-  golangide:latest
-
-$ docker exec -u ide -it golang bash
-```
-
-- `YOUR-SHARED-DIRECTORY` is you local source code directory shared with native OS. E.g. "/Users/qiwang/dev".
-- You may need to create a docker volume `proj-vol` first:
-
-```sh
-% docker volume create proj-vol
-```
-
-- `proj-vol` is also your source code directory, which you don't need to access from native OS. It's faster comparing with shared one.
-
 ## Features
 
 - [neovim](https://neovim.io) - Vim-fork focused on extensibility and agility.
@@ -51,9 +31,27 @@ $ docker exec -u ide -it golang bash
 
 Please suggest any software which deserved to be integrated into this IDE.
 
-## Guide
+## Quick guide
 
-- Working ont it.
+```sh
+% docker pull ericwq057/golangide:latest
+
+% docker run -it -d -h golangide  --env TZ=Asia/Shanghai  --name golang \
+  --mount source=proj-vol,target=/home/ide/proj \
+  --mount type=bind,source=YOUR-SHARED-DIRECTORY,target=/home/ide/develop \
+  golangide:latest
+
+$ docker exec -u ide -it golang bash
+```
+
+- `YOUR-SHARED-DIRECTORY` is you local source code directory shared with native OS. E.g. "/Users/qiwang/dev".
+- You may need to create a docker volume `proj-vol` first:
+
+```sh
+% docker volume create proj-vol
+```
+
+- `proj-vol` is also your source code directory, which you don't need to access from native OS. It's faster comparing with shared one.
 
 ## Reference
 
@@ -63,4 +61,5 @@ Please suggest any software which deserved to be integrated into this IDE.
 
 ## Status
 
+- Working on detail guide.
 - The golangIDE is verified by [grpc/grpc-go](https://github.com/grpc/grpc-go) project.
