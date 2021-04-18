@@ -9,7 +9,7 @@ A neovim based golang IDE, based on [alpine](https://www.alpinelinux.org/) linux
 - [bash](https://www.gnu.org/software/bash/bash.html) - The GNU Bourne Again shell.
 - [git](https://www.git-scm.com/) - Distributed version control system
 - [htop](https://htop.dev/) - Interactive process viewer.
-- [gopls](https://github.com/golang/tools) - go language server.
+- [gopls](https://github.com/golang/tools) - The [go language server](https://pkg.go.dev/golang.org/x/tools/gopls#section-directories).
 - [vim-go](https://github.com/fatih/vim-go) - Go development plugin for Vim.
 - [coc.nvim](https://github.com/neoclide/coc.nvim) - Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers.
   - [coc-go](https://github.com/josa42/coc-go) - Go language server extension using gopls for coc.nvim.
@@ -19,15 +19,14 @@ A neovim based golang IDE, based on [alpine](https://www.alpinelinux.org/) linux
   - [coc-markdownlint](https://github.com/fannheyward/coc-markdownlint) - markdownlint extension for coc.nvim.
 - [protoc - protocol buffer compiler](https://developers.google.com/protocol-buffers/docs/downloads)
   - [protoc-gen-go](google.golang.org/grpc/cmd/protoc-gen-go-grpc) - Go plugin for the protocol compiler.
-- [fzf](https://github.com/junegunn/fzf) - A command-line fuzzy finder.
+- [fzf](https://github.com/junegunn/fzf) - 🌸 A command-line fuzzy finder.
+- [junegunn/fzf.vim](https://github.com/junegunn/fzf.vim) - fzf ❤️  vim.
 - [ripgrep](https://github.com/BurntSushi/ripgrep) - ripgrep recursively searches directories for a regex pattern while respecting your gitignore.
 - [crusoexia/vim-monokai](https://github.com/crusoexia/vim-monokai) - Refined Monokai color scheme for vim, inspired by Sublime Text.
 - [ekalinin/Dockerfile.vim](https://github.com/ekalinin/Dockerfile.vim) - Vim syntax file & snippets for Docker's Dockerfile.
 - [itchyny/lightline.vim](https://github.com/itchyny/lightline.vim) - A light and configurable statusline/tabline plugin for Vim.
 - [preservim/nerdtree](https://github.com/preservim/nerdtree)- A tree explorer plugin for vim.
 - [preservim/tagbar](https://github.com/preservim/tagbar) - Vim plugin that displays tags in a window, ordered by scope.
-- [junegunn/fzf](https://github.com/junegunn/fzf) - 🌸 A command-line fuzzy finder.
-- [junegunn/fzf.vim](https://github.com/junegunn/fzf.vim) - fzf ❤️  vim.
 
 Please suggest any software which deserved to be integrated into this IDE.
 
