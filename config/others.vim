@@ -93,3 +93,7 @@ let $FZF_DEFAULT_COMMAND = 'rg --files'
 let g:markdown_fenced_languages = ['javascript', 'html', 'bash=sh']
 let g:markdown_minlines = 100
 
+" To get correct comment highlighting,
+" https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file#default-coc-preferences
+"
+autocmd FileType json syntax match Comment +\/\/.\+$+
