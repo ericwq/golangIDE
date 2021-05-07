@@ -53,6 +53,7 @@ $ docker exec -u ide -it golang bash
 ```
 
 - `proj-vol` is also your source code directory, which you don't need to access from native OS. It's faster comparing with shared one.
+- Check `% ls /usr/share/zoneinfo` to get the TZ value for your location.
 
 ## Reference
 
