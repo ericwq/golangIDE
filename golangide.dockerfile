@@ -1,4 +1,4 @@
-FROM golang:1.16.3-alpine
+FROM golang:1.16.4-alpine
 LABEL maintainer="ericwq057@qq.com"
 
 # This is the runtime package it contains

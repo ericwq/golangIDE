@@ -4,6 +4,8 @@ A neovim based golang IDE, based on [alpine](https://www.alpinelinux.org/) linux
 
 ## Features
 
+For a full list of integrated softwares, please run `% apk info` in golangIDE.
+
 - [neovim](https://neovim.io) - Vim-fork focused on extensibility and agility.
 - [golang](https://golang.org/) - The Go programming language.
 - [bash](https://www.gnu.org/software/bash/bash.html) - The GNU Bourne Again shell.
@@ -17,7 +19,7 @@ A neovim based golang IDE, based on [alpine](https://www.alpinelinux.org/) linux
   - [coc-snippets](https://github.com/neoclide/coc-snippets) - Snippets solution for coc.nvim.
   - [coc-pairs](https://github.com/neoclide/coc-pairs) - Basic auto pairs extension of coc.nvim.
   - [coc-markdownlint](https://github.com/fannheyward/coc-markdownlint) - markdownlint extension for coc.nvim.
-- [protoc - protocol buffer compiler](https://developers.google.com/protocol-buffers/docs/downloads)
+- [protoc](https://developers.google.com/protocol-buffers/docs/downloads) - protocol buffer compiler.
   - [protoc-gen-go](google.golang.org/grpc/cmd/protoc-gen-go-grpc) - Go plugin for the protocol compiler.
 - [fzf](https://github.com/junegunn/fzf) - 🌸 A command-line fuzzy finder.
 - [junegunn/fzf.vim](https://github.com/junegunn/fzf.vim) - fzf ❤️  vim.
@@ -54,7 +56,7 @@ $ docker exec -u ide -it golang bash
 
 ## Reference
 
-- [shared gopls daemon](shared-gopls-daemon.md) - the problem has been fixed by coc.nvim team.
+- [Shared gopls daemon](shared-gopls-daemon.md) - the problem has been fixed by coc.nvim team.
 - [How to setup a shared gopls "daemon" process](setup.md) - hands-on experience.
 - [Vim as a Go (Golang) IDE using LSP and vim-go](https://octetz.com/docs/2019/2019-04-24-vim-as-a-go-ide/)
 
