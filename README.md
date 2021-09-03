@@ -55,6 +55,24 @@ $ docker exec -u ide -it golang bash
 - `proj-vol` is also your source code directory, which you don't need to access from native OS. It's faster comparing with shared one.
 - Check `% ls /usr/share/zoneinfo` to get the TZ value for your location.
 
+## About fzf and Rg
+
+In neovim, type `,`+`space` to activate Rg, to perform file content search. You can change the Hot-keys in `others.vim`. Use `ctrl+g` to search golang type and function for current package.
+
+## Fn Key definition
+
+NERDTree is ON by default. Tagbar is OFF by default. Use `F4` to activate fzf, to perform file name search.
+
+```sh
+nmap <F4> :FZF<CR>
+nmap <F5> :NERDTreeToggle<CR>
+nmap <F6> :nohlsearch<CR>
+autocmd FileType go nmap <F7> :GoSameIdsToggle<CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <F9> :NERDTreeFind <CR>
+nnoremap <silent> <F10> :set spell!<cr>
+```
+
 ## Reference
 
 - [Shared gopls daemon](shared-gopls-daemon.md) - the problem has been fixed by coc.nvim team.
