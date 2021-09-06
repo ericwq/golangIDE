@@ -57,7 +57,7 @@ $ docker exec -u ide -it golang bash
 
 ## About fzf and Rg
 
-In neovim, type `,`+`space` to activate Rg, to perform file content search. You can change the Hot-keys in `others.vim`. Use `ctrl+g` to search golang type and function for current package.
+In neovim, type `,`+`space` to activate Rg, to perform file content search. You can change the Hot-keys in `vim-go.vim`. Use `ctrl+g` to search golang type and function for current package.
 
 ## Fn Key definition
 
