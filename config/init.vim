@@ -12,8 +12,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'preservim/nerdtree'
 Plug 'preservim/tagbar'
 Plug 'fatih/vim-go'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'tag': '0.27.2' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
