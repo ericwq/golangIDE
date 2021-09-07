@@ -13,6 +13,7 @@ For a full list of integrated softwares, please run `% apk info` in golangIDE.
 - [htop](https://htop.dev/) - Interactive process viewer.
 - [gopls](https://github.com/golang/tools) - The [go language server](https://pkg.go.dev/golang.org/x/tools/gopls#section-directories).
 - [vim-go](https://github.com/fatih/vim-go) - Go development plugin for Vim.
+- [ctrlp](https://github.com/ctrlpvim/ctrlp.vim) - Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 - [coc.nvim](https://github.com/neoclide/coc.nvim) - Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers.
   - [coc-go](https://github.com/josa42/coc-go) - Go language server extension using gopls for coc.nvim.
   - [coc-json](https://github.com/neoclide/coc-json) - Json language extension for coc.nvim.
