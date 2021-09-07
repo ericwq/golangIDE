@@ -45,15 +45,15 @@ TZ=Asia/Shanghai
 docker run -it -d -h golangide  --env TZ=Asia/Shanghai  --name golang \
 	--mount source=proj-vol,target=/home/ide/proj \
 	--mount type=bind,source=/Users/qiwang/dev,target=/home/ide/develop \
-	golangide:0.5.6
+	golangide:0.6.2
 
-% docker build -t golangide:0.5.6 -f golangide.dockerfile .
+% docker build -t golangide:0.6.2 -f golangide.dockerfile .
 " Share images on Docker Hub
 " 1. Tag the image correctly
-% docker tag golangide:0.5.6 ericwq057/golangide:0.5.6
+% docker tag golangide:0.6.2 ericwq057/golangide:0.6.2
 " 2. sign in with your account at hub.docker.com 
 " 3. Push to docker.io
-% docker push ericwq057/golangide:0.5.6
+% docker push ericwq057/golangide:0.6.2
 
 " run as root 
 " docker exec -u 0 -it v0.5 bash
@@ -77,5 +77,5 @@ docker exec -u ide -it gcc bash
 " build gccIDE
 % docker build -t gccide:0.2.2 -f gccIDE.dockerfile .
 
-% git tag -a 0.2.2 -m "add bear package. add clangd configuration. Update wiki."
-% git push origin 0.2.2
+% git tag -a 0.6.2 -m "add bear package. add clangd configuration. Update wiki."
+% git push origin 0.6.2
