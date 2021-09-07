@@ -56,12 +56,28 @@ $ docker exec -u ide -it golang bash
 - `proj-vol` is also your source code directory, which you don't need to access from native OS. It's faster comparing with shared one.
 - Check `% ls /usr/share/zoneinfo` to get the TZ value for your location.
 
+## vim-go commands and coc.nvim commands
+
+See [vim-go.vim](https://github.com/ericwq/golangIDE/blob/master/config/vim-go.vim) for vim-go commands. Here `,` is the `leader` key.
+
+e.g. for `GoTest` command, the configuration sets the `,`+`t` hot key to run test.
+
+`coc.nvim` uses the following hot key to perform code navigation.
+
+```sh
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+```
+
 ## About Rg and GoDecls
 
 In neovim, type `,`+`space` to activate Rg, to perform file content search. You can change the Hot-keys in `others.vim`.
 
 ```sh
-" fzf configuration
+" ripgrep configuration
 nnoremap <silent> <Leader><Space> :Rg<CR>
 ```
 
