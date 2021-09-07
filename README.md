@@ -62,7 +62,7 @@ See [vim-go.vim](https://github.com/ericwq/golangIDE/blob/master/config/vim-go.v
 
 e.g. for `GoTest` command, the configuration sets the `,`+`t` hot key to run test.
 
-`coc.nvim` uses the following hot key to perform code navigation.
+`coc.nvim` uses the following hot key to perform code navigation. See [coc.nvim](https://github.com/ericwq/golangIDE/blob/master/config/coc.vim) for all `coc.nvim` commands.
 
 ```sh
 " GoTo code navigation.
