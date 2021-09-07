@@ -56,7 +56,7 @@ $ docker exec -u ide -it golang bash
 - `proj-vol` is also your source code directory, which you don't need to access from native OS. It's faster comparing with shared one.
 - Check `% ls /usr/share/zoneinfo` to get the TZ value for your location.
 
-## vim-go commands and coc.nvim commands
+### vim-go commands and coc.nvim commands
 
 See [vim-go.vim](https://github.com/ericwq/golangIDE/blob/master/config/vim-go.vim) for vim-go commands. Here `,` is the `leader` key.
 
@@ -72,7 +72,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 ```
 
-## About Rg and GoDecls
+### about Rg and GoDecls
 
 In neovim, type `,`+`space` to activate Rg, to perform file content search. You can change the Hot-keys in `others.vim`.
 
@@ -89,7 +89,7 @@ nmap <C-g> :GoDecls<cr>
 imap <C-g> <esc>:<C-u>GoDecls<cr>
 ```
 
-## Fn Key definition
+### Fn Key definition
 
 NERDTree is ON by default, use `F5` to close it. Tagbar is OFF by default, use `F8` to open it. Use `F4` to activate fzf, to perform file name search. Use `F10` to open the spell check. Use `F7` to issue `GoSameIdsToggle` command. Use `F9` to issue `NERDTreeFind` command. You can change the Hot-keys in `others.vim`.
 
