@@ -100,11 +100,11 @@ let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 
 let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
+let g:go_highlight_fields = 0
 let g:go_highlight_functions = 0
-let g:go_highlight_function_calls = 0
-let g:go_highlight_extra_types = 1
-let g:go_highlight_generate_tags = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 0
+let g:go_highlight_generate_tags = 0
 
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
@@ -162,13 +162,15 @@ augroup END
 
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
-
-" automatically show the information whenever you move your cursor
-let g:go_auto_type_info = 1
-
-" automatically highlight matching identifiers. 
-let g:go_auto_sameids = 0
-let g:go_updatetime = 800
 let g:go_implements_mode = 'gopls'
 
+" automatically show the information whenever you move your cursor
+" By default it's disabled.
+" let g:go_auto_type_info = 1
 
+" automatically highlight matching identifiers. 
+" By default it's disabled.
+" let g:go_auto_sameids = 0
+let g:go_updatetime = 800
+
+" let g:go_debug=['lsp']
