@@ -13,7 +13,6 @@ For a full list of integrated softwares, please run `% apk info` in golangIDE.
 - [htop](https://htop.dev/) - Interactive process viewer.
 - [gopls](https://github.com/golang/tools) - The [go language server](https://pkg.go.dev/golang.org/x/tools/gopls#section-directories).
 - [vim-go](https://github.com/fatih/vim-go) - Go development plugin for Vim.
-- [ctrlp](https://github.com/ctrlpvim/ctrlp.vim) - Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 - [coc.nvim](https://github.com/neoclide/coc.nvim) - Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers.
   - [coc-go](https://github.com/josa42/coc-go) - Go language server extension using gopls for coc.nvim.
   - [coc-json](https://github.com/neoclide/coc-json) - Json language extension for coc.nvim.
@@ -61,6 +60,7 @@ $ docker exec -u ide -it golang bash
 See [vim-go.vim](https://github.com/ericwq/golangIDE/blob/master/config/vim-go.vim) for vim-go commands. Here `,` is the `leader` key.
 
 e.g. for `GoTest` command, the configuration sets the `,`+`t` hot key to run test.
+e.g. for `GoRun` command, the configuration sets the `,`+`r` hot key to run test.
 
 `coc.nvim` uses the following hot key to perform code navigation. See [coc.nvim](https://github.com/ericwq/golangIDE/blob/master/config/coc.vim) for all `coc.nvim` commands.
 
