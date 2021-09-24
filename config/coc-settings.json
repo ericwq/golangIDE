@@ -3,7 +3,8 @@
   "go.goplsPath": "/go/bin/gopls",
   "go.goplsOptions": {
     "completeUnimported": true,
-    "usePlaceholders": true
+    "usePlaceholders": true,
+    "experimentalWorkspaceModule": true
   },
   "markdownlint.config": {
 	  "default":true,
