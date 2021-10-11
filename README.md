@@ -59,8 +59,10 @@ $ docker exec -u ide -it golang bash
 
 See [vim-go.vim](https://github.com/ericwq/golangIDE/blob/master/config/vim-go.vim) for vim-go commands. Here `,` is the `leader` key.
 
+```sh
 e.g. for `GoTest` command, the configuration sets the `,`+`t` hot key to run test.
-e.g. for `GoRun` command, the configuration sets the `,`+`r` hot key to run test.
+e.g. for `GoRun` command, the configuration sets the `,`+`r` hot key to run the application.
+```
 
 `coc.nvim` uses the following hot key to perform code navigation. See [coc.nvim](https://github.com/ericwq/golangIDE/blob/master/config/coc.vim) for all `coc.nvim` commands.
 
