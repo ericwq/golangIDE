@@ -84,9 +84,9 @@ nnoremap <silent> <Leader><Space> :Rg<CR>
 Use `ctrl+g` to search golang type and function for current package. You can change the Hot-keys in `vim-go.vim`.
 
 ```sh
-" Open :GoDecls with ctrl-g
-nmap <C-g> :GoDecls<cr>
-imap <C-g> <esc>:<C-u>GoDecls<cr>
+" Open :GoDeclsDir with ctrl-g
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
 ```
 
 ### Fn Key definition
