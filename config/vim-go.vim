@@ -32,7 +32,7 @@ set completeopt=menu,menuone    " Show popup menu, even if there is one entry
 set pumheight=10                " Completion window max size
 set nocursorcolumn              " Do not highlight column (speeds up highlighting)
 set cursorline                  " hilight cursor line.
-set lazyredraw                  " Wait to redraw
+" set lazyredraw                  " Wait to redraw
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
@@ -166,7 +166,7 @@ let g:go_implements_mode = 'gopls'
 
 " automatically show the information whenever you move your cursor
 " By default it's disabled.
-" let g:go_auto_type_info = 1
+let g:go_auto_type_info = 1
 
 " automatically highlight matching identifiers. 
 " By default it's disabled.

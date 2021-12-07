@@ -97,3 +97,6 @@ let g:markdown_minlines = 100
 " https://github.com/neoclide/coc.nvim/wiki/Using-the-configuration-file#default-coc-preferences
 "
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" redraw the window every time the content is scrolled.
+autocmd WinScrolled * mode
