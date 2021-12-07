@@ -2,6 +2,10 @@
 
 A neovim based golang IDE, based on [alpine](https://www.alpinelinux.org/) linux, go language server enabled, syntax highlight IDE. Just pull docker image from [hub.docker.com](https://hub.docker.com/r/ericwq057/golangide) and run it.
 
+## Update
+
+- 2021.12.7 v0.6.9 update to go 1.17.4.
+
 ## Features
 
 For a full list of integrated softwares, please run `% apk info` in golangIDE.
