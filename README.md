@@ -1,3 +1,7 @@
+# Deprecated
+
+`gccIDE` is merged to [nvide](https://github.com/ericwq/nvide). 
+
 # golangIDE
 
 A neovim based golang IDE, based on [alpine](https://www.alpinelinux.org/) linux, go language server enabled, syntax highlight IDE. Just pull docker image from [hub.docker.com](https://hub.docker.com/r/ericwq057/golangide) and run it.
